@@ -29,9 +29,10 @@ Structure recommandée, en français :
 1. **Une phrase-clé** avec l'ordre de grandeur le plus parlant (souvent l'énergie et le CO2e, avec une équivalence).
 2. **Le tableau** fourchette min–max (énergie, GES dont fabrication, eau, métaux). Garder les fourchettes : afficher un chiffre unique laisserait croire à une précision qui n'existe pas.
 3. **D'où vient l'impact** : modèle dominant, part des tokens de réflexion (thinking), part des sous-agents. C'est ce qui rend les conseils pertinents.
-4. **Fiabilité** en 2-3 lignes : Anthropic ne publie aucun chiffre par requête ; les paramètres des modèles sont estimés par EcoLogits ; EcoLogits ne compte que les tokens générés, alors qu'en usage agentique la relecture du contexte pèse lourd (d'où l'estimation complémentaire, à présenter comme indicative). Les mesures publiées par Google (0,24 Wh par requête Gemini médiane) sont nettement plus basses qu'EcoLogits : citer les deux montre l'état réel des connaissances.
-5. **2 à 4 leviers de sobriété** choisis selon les données (voir section 3), chacun avec son effet attendu.
-6. Proposer en une ligne le rapport HTML.
+4. **Le poids du contexte relu**, en paragraphe à part (section « Poids du contexte relu » du script). En usage agentique, chaque requête relit toute la conversation, les fichiers lus et les sorties d'outils : souvent plus de 100 000 tokens par requête. EcoLogits l'ignore ; l'estimation complémentaire, indicative, peut être plusieurs fois supérieure. Présenter les deux lectures côte à côte (« génération seule, méthode EcoLogits » et « relecture du contexte comprise, ordre de grandeur ») plutôt que d'en cacher une : la première est la plus sourcée, la seconde montre souvent le principal levier d'action. Quand le rapport dépasse ×2 ou que le contexte moyen dépasse 100 000 tokens, le dire clairement et faire du contexte un des premiers leviers.
+5. **Fiabilité** en 2-3 lignes : Anthropic ne publie aucun chiffre par requête ; les paramètres des modèles sont estimés par EcoLogits ; les coefficients de l'estimation « contexte » sont grossiers. Les mesures publiées par Google (0,24 Wh par requête Gemini médiane) sont nettement plus basses qu'EcoLogits : citer les deux montre l'état réel des connaissances.
+6. **2 à 4 leviers de sobriété** choisis selon les données (voir section 3), chacun avec son effet attendu.
+7. Proposer en une ligne le rapport HTML.
 
 Équivalences : en choisir deux ou trois parlantes, pas toutes. Pour donner du recul, comparer aussi à un geste courant (un repas végétarien ≈ 850 g CO2e, ADEME) : une session typique pèse bien moins qu'un trajet en voiture, mais un usage intensif quotidien s'additionne. L'objectif est la juste proportion, ni alarmisme ni « c'est négligeable ».
 
@@ -44,7 +45,7 @@ Lire `references/sobriete.md` et retenir les leviers qui correspondent à ce que
 - Modèle le plus gros (Opus, Fable) majoritaire → réserver ce modèle aux tâches difficiles, Sonnet ou Haiku pour le reste (impact ≈ proportionnel aux paramètres actifs : Haiku ≈ 40 fois moins qu'Opus, Sonnet ≈ 3 fois moins dans EcoLogits).
 - Part de réflexion élevée (> 30 % des tokens générés) → baisser le niveau d'effort pour les tâches simples.
 - Sous-agents nombreux → ne déléguer que ce qui le justifie.
-- Contexte relu très volumineux → `/clear` entre deux tâches sans lien, `/compact`, éviter de charger des fichiers entiers inutilement.
+- Contexte moyen > 100 000 tokens ou estimation « contexte » > 2× EcoLogits → `/clear` entre deux tâches sans lien, `/compact`, éviter de charger des fichiers entiers inutilement.
 - Nombreuses sessions courtes répétitives → regrouper les demandes, réutiliser des skills et scripts plutôt que régénérer.
 
 Toujours formuler les conseils comme des options concrètes, pas comme des reproches.

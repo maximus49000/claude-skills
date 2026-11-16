@@ -215,10 +215,26 @@ def compute(reqs):
             tokens["subagent_requests"] += 1
             tokens["subagent_out"] += r["out"]
 
+    # Estimation complémentaire : compte aussi la (re)lecture du contexte, qu'EcoLogits ignore.
     cc = DATA["context_estimate_wh_per_mtok"]
-    context_wh = (tokens["in"] * cc["input"] + tokens["out"] * cc["output"]
-                  + tokens["cache_read"] * cc["cache_read"]
-                  + tokens["cache_write"] * cc["cache_write"]) / 1e6
+    parts = {k: tokens[k] * cc[c] / 1e6 for k, c in
+             (("out", "output"), ("in", "input"), ("cache_read", "cache_read"),
+              ("cache_write", "cache_write"))}
+    context_wh = sum(parts.values())
+    ctx_tokens = tokens["in"] + tokens["cache_read"] + tokens["cache_write"]
+    big = sum(1 for r in reqs if r["in"] + r["cache_read"] + r["cache_write"] > 100_000)
+    mix = DATA["electricity_mixes"][DATA["provider_anthropic"]["datacenter_location"]]
+    eco_mid = (tot["min"].get("energy_wh", 0) + tot["max"].get("energy_wh", 0)) / 2
+    context = {
+        "energy_wh": context_wh,
+        "gwp_usage_g": context_wh * mix["gwp_kg_per_kwh"],
+        "share_context": (context_wh - parts["out"]) / context_wh if context_wh else 0,
+        "parts_wh": parts,
+        "avg_context_tokens": ctx_tokens / tokens["requests"] if tokens["requests"] else 0,
+        "requests_over_100k": big,
+        "ratio_vs_ecologits": context_wh / eco_mid if eco_mid else 0,
+        "source": cc["_source"],
+    }
 
     eq = DATA["equivalences"]
     mid = lambda k: (tot["min"].get(k, 0) + tot["max"].get(k, 0)) / 2
@@ -235,7 +251,7 @@ def compute(reqs):
         "tokens": tokens,
         "impacts": tot,
         "per_model": per_model,
-        "context_estimate_wh": context_wh,
+        "context_estimate": context,
         "equivalences": equivalences,
         "warnings": sorted(warnings),
     }
@@ -292,9 +308,25 @@ def text_report(res, label):
         f"{fmt(e['heures_ampoule_led'])} h d'ampoule LED 10 W",
         f"- {fmt(e['prompts_gemini_medians'])} requêtes Gemini « médianes » (0,24 Wh, Google 2025)",
         f"- {fmt(e['verres_eau_25cl'])} verres d'eau de 25 cl",
+    ]
+    c = res["context_estimate"]
+    p = c["parts_wh"]
+    lines += [
         "",
-        f"Estimation complémentaire incluant la lecture du contexte (hors EcoLogits, "
-        f"coefficients Couch 2026) : ~{fmt(res['context_estimate_wh'])} Wh",
+        "### Poids du contexte relu (hors EcoLogits, indicatif)",
+        "EcoLogits ne compte que les tokens générés. À chaque requête, Claude relit aussi tout "
+        "le contexte (conversation, fichiers lus, instructions, sorties d'outils).",
+        f"- Contexte moyen par requête : {fmt(c['avg_context_tokens'])} tokens ; "
+        f"{c['requests_over_100k']} requête(s) au-delà de 100 000 tokens",
+        f"- Estimation incluant cette relecture : ~{fmt(c['energy_wh'])} Wh, "
+        f"~{fmt(c['gwp_usage_g'])} g CO2e (usage, mix USA), "
+        f"soit ×{fmt(c['ratio_vs_ecologits'])} l'estimation EcoLogits",
+        f"- Part du contexte dans cette estimation : {c['share_context']:.0%} "
+        f"(relecture du cache {fmt(p['cache_read'])} Wh, écriture du cache "
+        f"{fmt(p['cache_write'])} Wh, entrée non cachée {fmt(p['in'])} Wh, "
+        f"génération {fmt(p['out'])} Wh)",
+        "- Coefficients : S. P. Couch (2026), hypothèses grossières calées sur un grand "
+        "modèle ; à lire comme un ordre de grandeur, pas une mesure",
     ]
     for w in res["warnings"]:
         lines.append(f"Avertissement : {w}")
