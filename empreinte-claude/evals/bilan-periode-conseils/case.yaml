@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: bilan-periode-conseils
+expected_outcome: |
+  Bilan multi-sessions sur la période via --all-projects --since, détail par modèle, conseils concrets priorisés.

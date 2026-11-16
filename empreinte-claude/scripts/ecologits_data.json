@@ -1,0 +1,62 @@
+{
+  "_source": "EcoLogits (genai-impact/ecologits) v0.11.3 - ecologits/impacts/llm.py, ecologits/tracers/utils.py, ecologits/data/models.json, ecologits/data/electricity_mixes.json - relevé le 2026-11-16",
+  "_update_hint": "Pour mettre à jour : comparer avec https://raw.githubusercontent.com/genai-impact/ecologits/main/ecologits/data/models.json (provider anthropic) et ecologits/impacts/llm.py",
+  "constants": {
+    "gpu_energy_alpha_wh": 1.1665273170451914e-06,
+    "gpu_energy_beta": -0.011205921025579175,
+    "gpu_energy_gamma_wh": 4.052928146734005e-05,
+    "batch_size": 64,
+    "quantization_bits": 16,
+    "gpu_memory_gb": 80,
+    "memory_overhead": 1.2,
+    "server_gpus": 8,
+    "server_power_kw": 1.2,
+    "hardware_lifespan_s": 94608000,
+    "server_embodied": {"gwp_kgco2eq": 5700, "adpe_kgsbeq": 0.37, "pe_mj": 70000},
+    "gpu_embodied": {"gwp_kgco2eq": 273, "adpe_kgsbeq": 0.00895, "pe_mj": 3721}
+  },
+  "provider_anthropic": {
+    "datacenter_location": "USA",
+    "pue": {"min": 1.09, "max": 1.14},
+    "wue_onsite_l_per_kwh": {"min": 0.13, "max": 0.999}
+  },
+  "electricity_mixes": {
+    "USA": {"gwp_kg_per_kwh": 0.3844, "adpe_kgsbeq_per_kwh": 9.855e-08, "pe_mj_per_kwh": 9.6884, "wue_l_per_kwh": 3.1321},
+    "WOR": {"gwp_kg_per_kwh": 0.45829, "adpe_kgsbeq_per_kwh": 1.349e-08, "pe_mj_per_kwh": 2.5871, "wue_l_per_kwh": 3.908}
+  },
+  "models": {
+    "claude-fable-5":    {"arch": "moe",   "total": 1340, "active_min": 134, "active_max": 400, "tps": 57.0,  "ttft": 3.58},
+    "claude-fable-5-1":  {"arch": "moe",   "total": 1340, "active_min": 134, "active_max": 400, "tps": 51.0,  "ttft": 3.89},
+    "claude-haiku-4-5":  {"arch": "dense", "active_min": 10,  "active_max": 35,  "tps": 79.0,  "ttft": 0.5},
+    "claude-haiku-5-5":  {"arch": "dense", "active_min": 10,  "active_max": 35,  "tps": 147.0, "ttft": 1.75},
+    "claude-opus-4-5":   {"arch": "moe",   "total": 670,  "active_min": 67,  "active_max": 200, "tps": 30.5,  "ttft": 5.03},
+    "claude-opus-4-6":   {"arch": "moe",   "total": 670,  "active_min": 67,  "active_max": 200, "tps": 35.0,  "ttft": 1.95},
+    "claude-opus-4-7":   {"arch": "moe",   "total": 670,  "active_min": 67,  "active_max": 200, "tps": 42.0,  "ttft": 1.75},
+    "claude-opus-4-8":   {"arch": "moe",   "total": 670,  "active_min": 67,  "active_max": 200, "tps": 110.8, "ttft": 0.87},
+    "claude-opus-5":     {"arch": "moe",   "total": 670,  "active_min": 67,  "active_max": 200, "tps": 89.5,  "ttft": 1.84},
+    "claude-opus-5-5":   {"arch": "moe",   "total": 670,  "active_min": 70,  "active_max": 200, "tps": 102.8, "ttft": 2.68},
+    "claude-sonnet-4-5": {"arch": "moe",   "total": 440,  "active_min": 44,  "active_max": 132, "tps": 42.0,  "ttft": 1.15},
+    "claude-sonnet-4-6": {"arch": "moe",   "total": 440,  "active_min": 44,  "active_max": 132, "tps": 40.0,  "ttft": 1.15},
+    "claude-sonnet-5":   {"arch": "moe",   "total": 293,  "active_min": 29,  "active_max": 88,  "tps": 79.5,  "ttft": 1.76},
+    "claude-sonnet-5-5": {"arch": "moe",   "total": 293,  "active_min": 29,  "active_max": 88,  "tps": 102.0, "ttft": 2.21}
+  },
+  "family_fallback": {
+    "fable": "claude-fable-5-1",
+    "opus": "claude-opus-5-5",
+    "sonnet": "claude-sonnet-5-5",
+    "haiku": "claude-haiku-5-5"
+  },
+  "context_estimate_wh_per_mtok": {
+    "_source": "S. P. Couch, 'Electricity use of AI coding agents', 2026-01-20 (hypothèses grossières de l'auteur, hors EcoLogits)",
+    "input": 390, "output": 1950, "cache_read": 39, "cache_write": 490
+  },
+  "equivalences": {
+    "voiture_thermique_g_per_km": {"value": 142, "source": "ADEME Impact CO2, voiture compacte diesel, fabrication incluse - https://impactco2.fr/outils/transport/voiture-compact-diesel"},
+    "tgv_g_per_km": {"value": 2.93, "source": "ADEME Impact CO2 - https://impactco2.fr/outils/transport/tgv"},
+    "repas_vegetarien_g": {"value": 850, "source": "ADEME Impact CO2 - https://impactco2.fr/outils/alimentation/repasvegetarien"},
+    "smartphone_fabrication_g": {"value": 79300, "source": "ADEME Impact CO2 - https://impactco2.fr/outils/numerique/smartphone"},
+    "gemini_prompt_median_wh": {"value": 0.24, "source": "Elsworth et al. (Google), arXiv 2508.15734, 2025"},
+    "recharge_smartphone_wh": {"value": 15, "source": "ordre de grandeur : batterie ~4 000 mAh x 3,85 V, pertes du chargeur incluses"},
+    "ampoule_led_w": {"value": 10, "source": "ampoule LED courante"}
+  }
+}

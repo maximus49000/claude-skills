@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: bilan-session-courante
+expected_outcome: |
+  Un bilan fondé sur les tokens réels de la session (script exécuté), en fourchette min-max, avec équivalences, sources et limites, plus des conseils de sobriété adaptés.
