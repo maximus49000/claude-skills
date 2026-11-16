@@ -1,6 +1,6 @@
 # claude-skills
 
-Skills Claude Code maison.
+Skills Claude Code partagées. Chaque dossier est une skill autonome.
 
 ## empreinte-claude
 
@@ -10,21 +10,33 @@ Estime l'impact environnemental (énergie, CO2e, eau, métaux) de ton usage de C
 
 Prérequis : Claude Code (CLI ou onglet Code de l'application de bureau) et Python 3 dans le PATH. Le script n'utilise que la bibliothèque standard.
 
-**Option 1 – pour tous tes projets (recommandé)** : lier le dossier de la skill dans tes skills personnelles, pour que chaque `git pull` la mette à jour.
+**Option 1 – pour tous tes projets (recommandé)** : cloner le dépôt, puis lier le dossier de la skill dans tes skills personnelles. Un `git pull` suffit ensuite pour la mettre à jour.
 
-Windows (invite de commandes) :
+Windows (invite de commandes `cmd`) :
 
 ```bat
+git clone https://github.com/maximus49000/claude-skills.git "%USERPROFILE%\Documents\claude-skills"
+mkdir "%USERPROFILE%\.claude\skills" 2>nul
 mklink /J "%USERPROFILE%\.claude\skills\empreinte-claude" "%USERPROFILE%\Documents\claude-skills\empreinte-claude"
 ```
 
 macOS / Linux :
 
 ```bash
+git clone https://github.com/maximus49000/claude-skills.git ~/Documents/claude-skills
+mkdir -p ~/.claude/skills
 ln -s ~/Documents/claude-skills/empreinte-claude ~/.claude/skills/empreinte-claude
 ```
 
-Tu peux aussi simplement copier le dossier `empreinte-claude` dans `~/.claude/skills/`, mais il faudra alors le recopier à chaque mise à jour.
+Mettre à jour :
+
+```bash
+git -C ~/Documents/claude-skills pull
+```
+
+Sans git : télécharger le ZIP du dépôt (bouton « Code » → « Download ZIP » sur GitHub) et copier le dossier `empreinte-claude` dans `~/.claude/skills/`. Il faudra le recopier à chaque mise à jour.
+
+Tu peux aussi demander directement à Claude Code : « installe la skill empreinte-claude depuis https://github.com/maximus49000/claude-skills ».
 
 **Option 2 – pour un seul projet** : copier `empreinte-claude/` dans `<projet>/.claude/skills/` et le commiter avec le projet. La skill est alors partagée avec tous ceux qui travaillent sur ce dépôt.
 
