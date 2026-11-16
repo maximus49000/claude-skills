@@ -34,7 +34,7 @@ Structure recommandée, en français :
 6. **2 à 4 leviers de sobriété** choisis selon les données (voir section 3), chacun avec son effet attendu.
 7. Proposer en une ligne le rapport HTML.
 
-Équivalences : en choisir deux ou trois parlantes, pas toutes. Pour donner du recul, comparer aussi à un geste courant (un repas végétarien ≈ 850 g CO2e, ADEME) : une session typique pèse bien moins qu'un trajet en voiture, mais un usage intensif quotidien s'additionne. L'objectif est la juste proportion, ni alarmisme ni « c'est négligeable ».
+Équivalences : en choisir deux ou trois parlantes, pas toutes. Pour l'énergie, privilégier le vélo (heures de pédalage sur un vélo générateur à ~100 W, ou km de vélo) : rendre l'énergie en effort physique la rend concrète, par exemple « il faudrait pédaler 6 h pour produire l'électricité de cette session ». Pour donner du recul, comparer aussi à un geste courant (un repas végétarien ≈ 850 g CO2e, ADEME) : une session typique pèse bien moins qu'un trajet en voiture, mais un usage intensif quotidien s'additionne. L'objectif est la juste proportion, ni alarmisme ni « c'est négligeable ».
 
 Pour les sources et chiffres de comparaison : `references/sources.md`.
 

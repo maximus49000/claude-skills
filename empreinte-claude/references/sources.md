@@ -28,6 +28,7 @@ Relevé du 2026-11-16. Citer la source avec chaque chiffre repris dans un bilan.
 ## Facteurs d'émission et équivalences
 
 - Électricité USA ≈ 384 g CO2e/kWh ; monde ≈ 458–473 (Ember) ; France ≈ 52 g (ADEME Base Empreinte, ACV). Une même requête émet ≈ 7 fois moins sur le réseau français, mais les datacenters d'Anthropic sont aux USA.
+- Vélo (énergie) : un cycliste amateur soutient environ 75 à 150 W ; on retient 100 W, soit 1 h de pédalage sur un vélo générateur ≈ 100 Wh, ≈ 20 km à vélo. Ordre de grandeur, pas une source normée.
 - ADEME Impact CO2 (https://impactco2.fr) : voiture thermique 142 g CO2e/km (fabrication incluse) ; voiture électrique 67 g/km ; TGV 2,9 g/km ; repas végétarien 850 g ; repas avec bœuf 4,97 kg ; fabrication d'un smartphone 79 kg. Les valeurs d'un courriel et d'une heure de streaming varient selon les paramètres sur le site : ne pas les citer sans les vérifier.
 
 ## Ce que dit Anthropic

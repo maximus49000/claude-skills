@@ -57,6 +57,8 @@
     "smartphone_fabrication_g": {"value": 79300, "source": "ADEME Impact CO2 - https://impactco2.fr/outils/numerique/smartphone"},
     "gemini_prompt_median_wh": {"value": 0.24, "source": "Elsworth et al. (Google), arXiv 2508.15734, 2025"},
     "recharge_smartphone_wh": {"value": 15, "source": "ordre de grandeur : batterie ~4 000 mAh x 3,85 V, pertes du chargeur incluses"},
-    "ampoule_led_w": {"value": 10, "source": "ampoule LED courante"}
+    "ampoule_led_w": {"value": 10, "source": "ampoule LED courante"},
+    "velo_generateur_w": {"value": 100, "source": "ordre de grandeur : puissance soutenue par un cycliste amateur, 75 à 150 W (vélo générateur)"},
+    "velo_km_h": {"value": 20, "source": "vitesse moyenne d'un cycliste amateur à ~100 W sur le plat"}
   }
 }

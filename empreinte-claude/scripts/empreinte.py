@@ -243,6 +243,8 @@ def compute(reqs):
         "km_tgv": mid("gwp_g") / eq["tgv_g_per_km"]["value"],
         "recharges_smartphone": mid("energy_wh") / eq["recharge_smartphone_wh"]["value"],
         "heures_ampoule_led": mid("energy_wh") / eq["ampoule_led_w"]["value"],
+        "heures_velo": mid("energy_wh") / eq["velo_generateur_w"]["value"],
+        "km_velo": mid("energy_wh") / eq["velo_generateur_w"]["value"] * eq["velo_km_h"]["value"],
         "prompts_gemini_medians": mid("energy_wh") / eq["gemini_prompt_median_wh"]["value"],
         "verres_eau_25cl": mid("water_l") / 0.25,
     }
@@ -306,6 +308,8 @@ def text_report(res, label):
         f"- {fmt(e['km_voiture_thermique'])} km en voiture thermique, ou {fmt(e['km_tgv'])} km en TGV",
         f"- {fmt(e['recharges_smartphone'])} recharges de smartphone, "
         f"{fmt(e['heures_ampoule_led'])} h d'ampoule LED 10 W",
+        f"- {fmt(e['heures_velo'])} h de pédalage sur un vélo générateur (~100 W), "
+        f"soit ~{fmt(e['km_velo'])} km de vélo à 20 km/h",
         f"- {fmt(e['prompts_gemini_medians'])} requêtes Gemini « médianes » (0,24 Wh, Google 2025)",
         f"- {fmt(e['verres_eau_25cl'])} verres d'eau de 25 cl",
     ]
