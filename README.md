@@ -32,15 +32,29 @@ Tu peux aussi simplement copier le dossier `empreinte-claude` dans `~/.claude/sk
 
 Ouvre ensuite une nouvelle session Claude Code : la skill apparaît dans la liste des skills disponibles.
 
+### Vérifier l'installation
+
+Dans une **nouvelle** session Claude Code (les skills sont chargées au démarrage), tape `/` dans la zone de message : `empreinte-claude` doit apparaître dans la liste. Sinon, vérifie que le dossier `%USERPROFILE%\.claude\skills\empreinte-claude` existe (Windows) ou `~/.claude/skills/empreinte-claude` (macOS / Linux), puis ouvre une nouvelle session.
+
 ### Utiliser
 
-Il suffit de demander, en langage naturel :
+La skill ne fonctionne que dans Claude Code (terminal ou onglet Code de l'application de bureau) : elle lit les historiques de conversation enregistrés sur le poste. Dans une conversation claude.ai classique, ces données n'existent pas.
+
+**1. Avec la commande (le plus fiable)** : taper `/empreinte-claude`, éventuellement suivi de la demande.
+
+- `/empreinte-claude` : bilan de la session en cours
+- `/empreinte-claude depuis le 1er novembre, tous projets`
+- `/empreinte-claude rapport HTML du mois`
+
+**2. En langage naturel** : Claude charge la skill tout seul quand la demande correspond à sa description.
 
 - « Quel est l'impact écologique de cette session ? »
 - « Fais-moi le bilan carbone de mon usage de Claude Code depuis le 1er novembre, tous projets confondus. »
 - « Est-ce que passer de Opus à Haiku change vraiment quelque chose ? »
 - « Comment utiliser Claude de façon plus sobre ? »
 - « Fais-moi un rapport HTML de mon empreinte du mois. »
+
+Avec une question courte ou vague, Claude peut répondre de lui-même sans charger la skill : utiliser alors la commande.
 
 Claude lance le script, présente une fourchette (min–max) avec des équivalences, explique d'où vient l'impact (modèle, réflexion, sous-agents, contexte) et propose 2 à 4 leviers concrets.
 
